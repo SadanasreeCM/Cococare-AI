@@ -1,0 +1,401 @@
+/* CocoCare AI — Organic Biophilic Design System */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap');
+
+:root {
+  --forest-dark: #1b4332;
+  --leaf-green: #2d6a4f;
+  --sage-accent: #74c69d;
+  --soft-olive: #a3b18a;
+  --warm-cream: #fcfaf4;
+  --warm-ivory: #f6f4eb;
+  --sand-beige: #e9e5d6;
+  --earth-brown: #6b5b45;
+  --text-dark: #1f2923;
+  --text-muted: #5c6f64;
+  --border-light: #e2ece6;
+
+  /* Status Colors */
+  --status-healthy-bg: #d8f3dc;
+  --status-healthy-text: #1b4332;
+  --status-medium-bg: #fff3bf;
+  --status-medium-text: #b58404;
+  --status-high-bg: #ffe5ec;
+  --status-high-text: #d90429;
+
+  /* Organic Curvatures */
+  --radius-organic-lg: 28px 20px 30px 22px;
+  --radius-organic-md: 20px 16px 22px 18px;
+  --radius-pill: 40px;
+
+  /* Subtle Shadows */
+  --shadow-organic: 0 10px 32px rgba(27, 67, 50, 0.06);
+  --shadow-organic-hover: 0 18px 42px rgba(27, 67, 50, 0.12);
+}
+
+/* Global Page Styling with Organic Warm Ivory & Sage Glow Background */
+.stApp {
+  background-color: #f8f6f0 !important;
+  background-image: 
+    radial-gradient(circle at 10% 20%, rgba(116, 198, 157, 0.08) 0%, transparent 45%),
+    radial-gradient(circle at 90% 80%, rgba(45, 106, 79, 0.06) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(254, 252, 246, 0.8) 0%, transparent 100%) !important;
+  background-attachment: fixed !important;
+  font-family: 'Plus Jakarta Sans', 'Noto Sans Tamil', 'Noto Sans Devanagari', system-ui, sans-serif !important;
+  color: var(--text-dark) !important;
+}
+
+/* Clean Header & Navigation Bar */
+header[data-testid="stHeader"] {
+  background: rgba(248, 246, 240, 0.85) !important;
+  backdrop-filter: blur(12px) !important;
+}
+
+footer, #MainMenu {
+  visibility: hidden;
+}
+
+/* Typography Hierarchy */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Outfit', 'Noto Sans Tamil', 'Noto Sans Devanagari', sans-serif !important;
+  font-weight: 700 !important;
+  color: var(--forest-dark) !important;
+  letter-spacing: -0.02em !important;
+}
+
+/* Sidebar Custom Styling */
+[data-testid="stSidebar"] {
+  background: #ffffff !important;
+  border-right: 1px solid var(--border-light) !important;
+  padding: 1.75rem 1.2rem !important;
+  box-shadow: 4px 0 24px rgba(27, 67, 50, 0.03) !important;
+}
+
+/* Custom Radio Navigation Pill Item */
+[data-testid="stSidebar"] .stRadio label {
+  border-radius: var(--radius-pill) !important;
+  padding: 0.6rem 1.1rem !important;
+  font-weight: 600 !important;
+  color: var(--text-muted) !important;
+  transition: all 0.25s ease !important;
+  margin-bottom: 0.35rem !important;
+}
+
+[data-testid="stSidebar"] .stRadio label:hover {
+  background: var(--warm-ivory) !important;
+  color: var(--forest-dark) !important;
+}
+
+/* Active Menu Item Pill */
+[data-testid="stSidebar"] [aria-checked="true"] + div {
+  background: linear-gradient(135deg, #1b4332 0%, #2d6a4f 100%) !important;
+  color: #ffffff !important;
+  border-radius: var(--radius-pill) !important;
+  box-shadow: 0 4px 14px rgba(27, 67, 50, 0.2) !important;
+  padding: 0.6rem 1.1rem !important;
+  font-weight: 700 !important;
+}
+
+/* Organic Cards */
+.organic-card {
+  background: var(--warm-cream);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-organic-lg);
+  padding: 1.75rem;
+  box-shadow: var(--shadow-organic);
+  transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+  margin-bottom: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.organic-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-organic-hover);
+  border-color: var(--sage-accent);
+}
+
+/* Asymmetric Organic Decorative Accent */
+.organic-card::before {
+  content: "";
+  position: absolute;
+  top: -30px;
+  right: -30px;
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle, rgba(116, 198, 157, 0.15) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* Hero Container */
+.biophilic-hero {
+  background: linear-gradient(135deg, #1b4332 0%, #2d6a4f 60%, #3a7d5c 100%);
+  border-radius: 32px 24px 36px 28px;
+  padding: 3rem 2.5rem;
+  color: #ffffff;
+  box-shadow: 0 16px 40px rgba(27, 67, 50, 0.22);
+  margin-bottom: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.biophilic-hero h1 {
+  color: #ffffff !important;
+  font-size: 2.6rem !important;
+  line-height: 1.25 !important;
+  margin-bottom: 0.75rem !important;
+}
+
+.biophilic-hero p {
+  color: #d8f3dc !important;
+  font-size: 1.1rem !important;
+  line-height: 1.6 !important;
+  max-width: 620px;
+}
+
+.hero-image-mask {
+  border-radius: 28px 80px 28px 60px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.hero-image-mask:hover {
+  transform: scale(1.02);
+}
+
+/* Metric Cards */
+.organic-metric-box {
+  background: #ffffff;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-organic-md);
+  padding: 1.35rem 1.1rem;
+  box-shadow: var(--shadow-organic);
+  text-align: center;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.organic-metric-box:hover {
+  transform: translateY(-3px);
+  border-color: var(--leaf-green);
+  box-shadow: var(--shadow-organic-hover);
+}
+
+.metric-value-lg {
+  font-family: 'Outfit', sans-serif;
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--forest-dark);
+  line-height: 1.1;
+}
+
+.metric-label-sm {
+  font-size: 0.825rem;
+  color: var(--text-muted);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-top: 0.35rem;
+}
+
+/* Custom File Uploader */
+[data-testid="stFileUploader"] {
+  border: 2px dashed var(--leaf-green) !important;
+  border-radius: 24px !important;
+  padding: 2rem 1.5rem !important;
+  background: rgba(116, 198, 157, 0.06) !important;
+  transition: all 0.3s ease !important;
+}
+
+[data-testid="stFileUploader"]:hover {
+  border-color: var(--forest-dark) !important;
+  background: rgba(116, 198, 157, 0.12) !important;
+}
+
+/* Streamlit Buttons Override */
+.stButton > button {
+  background: linear-gradient(135deg, #1b4332 0%, #2d6a4f 100%) !important;
+  color: #ffffff !important;
+  font-family: 'Outfit', sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 1.05rem !important;
+  border: none !important;
+  border-radius: var(--radius-pill) !important;
+  padding: 0.75rem 2rem !important;
+  box-shadow: 0 6px 20px rgba(27, 67, 50, 0.18) !important;
+  transition: all 0.3s ease !important;
+}
+
+.stButton > button:hover {
+  background: linear-gradient(135deg, #2d6a4f 0%, #40916c 100%) !important;
+  box-shadow: 0 10px 28px rgba(27, 67, 50, 0.28) !important;
+  transform: translateY(-2px) !important;
+}
+
+/* Scanning Animation Effect */
+@keyframes scanAnimation {
+  0% { top: 0%; opacity: 0.8; }
+  50% { top: 95%; opacity: 0.9; }
+  100% { top: 0%; opacity: 0.8; }
+}
+
+.scanning-container {
+  position: relative;
+  overflow: hidden;
+  border-radius: 24px;
+}
+
+.scanning-line {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, #74c69d, #52b788, transparent);
+  box-shadow: 0 0 12px #52b788;
+  animation: scanAnimation 2.2s infinite ease-in-out;
+  z-index: 10;
+}
+
+/* Image Frame */
+.organic-image-frame {
+  border-radius: 24px 18px 24px 18px;
+  overflow: hidden;
+  box-shadow: var(--shadow-organic);
+  border: 4px solid #ffffff;
+  transition: transform 0.3s ease;
+}
+
+.organic-image-frame:hover {
+  transform: scale(1.015);
+}
+
+/* Gallery Items */
+.gallery-card {
+  background: #ffffff;
+  border-radius: 20px 16px 22px 18px;
+  overflow: hidden;
+  box-shadow: var(--shadow-organic);
+  transition: all 0.35s ease;
+  border: 1px solid var(--border-light);
+}
+
+.gallery-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-organic-hover);
+}
+
+.gallery-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.gallery-card:hover img {
+  transform: scale(1.05);
+}
+
+/* Status Badges */
+.badge-healthy {
+  background: #d8f3dc;
+  color: #1b4332;
+  font-weight: 700;
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.badge-diseased {
+  background: #ffe5ec;
+  color: #d90429;
+  font-weight: 700;
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.badge-warning {
+  background: #fff3bf;
+  color: #b58404;
+  font-weight: 700;
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Streamlit Accordion Expander Styling */
+.stExpander {
+  background: #ffffff !important;
+  border: 1px solid var(--border-light) !important;
+  border-radius: 20px !important;
+  box-shadow: var(--shadow-organic) !important;
+  margin-bottom: 0.85rem !important;
+}
+
+/* Floating Chatbot Button */
+div.element-container:has(#chat-fab-open),
+div.element-container:has(#chat-fab-close) {
+  display: none;
+}
+
+div.element-container:has(#chat-fab-open) + div.element-container,
+div.element-container:has(#chat-fab-close) + div.element-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 1000;
+  width: auto !important;
+}
+
+div.element-container:has(#chat-fab-open) + div.element-container button,
+div.element-container:has(#chat-fab-close) + div.element-container button {
+  width: 64px !important;
+  height: 64px !important;
+  border-radius: 50% !important;
+  padding: 0 !important;
+  font-size: 26px !important;
+  background: #0D631B !important;
+  box-shadow: 0 8px 20px rgba(13,99,27,0.35) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border: none !important;
+  color: white !important;
+  line-height: 1 !important;
+  transition: all 0.2s ease !important;
+  position: relative !important;
+}
+
+div.element-container:has(#chat-fab-open) + div.element-container button:hover,
+div.element-container:has(#chat-fab-close) + div.element-container button:hover {
+  transform: scale(1.05) !important;
+  box-shadow: 0 12px 28px rgba(13,99,27,0.5) !important;
+}
+
+/* Badge specific to open button */
+div.element-container:has(#chat-fab-open) + div.element-container button::after {
+  content: "";
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  width: 24px;
+  height: 24px;
+  background-color: white;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%230D631B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 9h8m-8 4h6m3 4.5a9 9 0 1 0-13-1.4l-1.5 3.9 3.9-1.5z"></path></svg>');
+  background-size: 14px 14px;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
