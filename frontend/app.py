@@ -1,6 +1,9 @@
 import os
+import sys
 import streamlit as st
 
+# Add the project root to the Python path to resolve 'frontend' and 'backend' module imports
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 # Configure Streamlit Page Settings (Must be first Streamlit command)
 st.set_page_config(
     page_title="CocoCare AI — Coconut Tree Disease Detection System",

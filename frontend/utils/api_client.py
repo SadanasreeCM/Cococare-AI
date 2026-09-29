@@ -2,10 +2,22 @@ import requests
 import os
 from typing import Dict, Any, List, Optional
 from dotenv import load_dotenv
+import streamlit as st
 
 load_dotenv()
 
-BACKEND_URL = os.getenv("BACKEND_URL", "http://127.0.0.1:8000")
+def get_backend_url():
+    # 1. Try Streamlit Secrets (for Streamlit Cloud)
+    try:
+        if hasattr(st, "secrets") and "API_BASE_URL" in st.secrets:
+            return st.secrets["API_BASE_URL"]
+    except Exception:
+        pass
+    
+    # 2. Try regular environment variable
+    return os.getenv("API_BASE_URL", "http://127.0.0.1:8000")
+
+BACKEND_URL = get_backend_url()
 
 class APIClient:
     def __init__(self, base_url: str = BACKEND_URL):

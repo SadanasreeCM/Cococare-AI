@@ -54,6 +54,8 @@ def render_organic_metric_card(label: str, value: str, icon: str = "🌴", delta
         unsafe_allow_html=True
     )
 
+from frontend.utils.api_client import api_client
+
 def render_coconut_gallery():
     """Renders the Coconut Health in Focus organic image gallery."""
     st.markdown("### 🌴 Coconut Health in Focus")
@@ -76,7 +78,7 @@ def render_coconut_gallery():
             if os.path.exists(local_path):
                 st.image(local_path, use_container_width=True)
             else:
-                st.image(f"http://127.0.0.1:8000/uploads/{item['file']}", use_container_width=True)
+                st.image(f"{api_client.base_url}/uploads/{item['file']}", use_container_width=True)
             st.markdown(
                 f"""
                 <div style="padding: 0.25rem 0.5rem 0.5rem 0.5rem;">
