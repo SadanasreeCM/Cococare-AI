@@ -1,9 +1,10 @@
 import requests
 import io
+import os
 from PIL import Image, ImageDraw
 
 def run_tests():
-    base_url = "http://127.0.0.1:8000"
+    base_url = os.getenv("BACKEND_URL", "http://127.0.0.1:8000").rstrip("/")
     print("1. Testing Health Endpoint...")
     r = requests.get(f"{base_url}/api/health")
     print(r.status_code, r.json())

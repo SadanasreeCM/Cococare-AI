@@ -10,20 +10,20 @@ class Settings(BaseSettings):
     TAGLINE: str = "Protect Every Coconut Tree with AI"
     
     # Roboflow Configuration
-    ROBOFLOW_API_KEY: str = ""
-    ROBOFLOW_MODEL: str = "coconut-tree-disease"
-    ROBOFLOW_VERSION: int = 1
+    ROBOFLOW_API_KEY: str = os.getenv("ROBOFLOW_API_KEY", "")
+    ROBOFLOW_MODEL: str = os.getenv("ROBOFLOW_MODEL", "coconut-tree-disease")
+    ROBOFLOW_VERSION: int = int(os.getenv("ROBOFLOW_VERSION", "1"))
 
     # Groq AI Configuration (for multilingual chatbot)
-    GROQ_API_KEY: str = ""
+    GROQ_API_KEY: str = os.getenv("GROQ_API_KEY", "")
     
     # Server Settings
-    BACKEND_URL: str = "http://127.0.0.1:8000"
-    HOST: str = "127.0.0.1"
-    PORT: int = 8000
+    BACKEND_URL: str = os.getenv("BACKEND_URL", "http://127.0.0.1:8000")
+    HOST: str = os.getenv("HOST", "127.0.0.1")
+    PORT: int = int(os.getenv("PORT", "8000"))
     
     # Database Settings
-    DATABASE_URL: str = f"sqlite:///{BASE_DIR}/data/cococare.db"
+    DATABASE_URL: str = os.getenv("DATABASE_URL", f"sqlite:///{BASE_DIR}/data/cococare.db")
     
     # Uploads Directory
     UPLOADS_DIR: str = str(BASE_DIR / "uploads")

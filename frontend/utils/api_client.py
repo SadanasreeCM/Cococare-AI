@@ -9,13 +9,13 @@ load_dotenv()
 def get_backend_url():
     # 1. Try Streamlit Secrets (for Streamlit Cloud)
     try:
-        if hasattr(st, "secrets") and "API_BASE_URL" in st.secrets:
-            return st.secrets["API_BASE_URL"]
+        if hasattr(st, "secrets") and "BACKEND_URL" in st.secrets:
+            return str(st.secrets["BACKEND_URL"]).rstrip("/")
     except Exception:
         pass
     
     # 2. Try regular environment variable
-    return os.getenv("API_BASE_URL", "http://127.0.0.1:8000")
+    return os.getenv("BACKEND_URL", "http://127.0.0.1:8000").rstrip("/")
 
 BACKEND_URL = get_backend_url()
 
@@ -39,20 +39,28 @@ class APIClient:
         params = {"confidence": confidence, "language": language}
         files = {"file": (filename, file_bytes, "image/jpeg")}
 
-        try:
-            res = requests.post(url, params=params, files=files, timeout=20)
-            if res.status_code == 200:
-                return res.json()
-            else:
-                try:
-                    err_detail = res.json().get("detail", res.text)
-                except Exception:
-                    err_detail = res.text
-                return {"success": False, "error": f"Backend Error (HTTP {res.status_code}): {err_detail}"}
-        except requests.exceptions.Timeout:
-            return {"success": False, "error": "Detection request timed out after 20 seconds."}
-        except requests.exceptions.RequestException as e:
-            return {"success": False, "error": f"Failed to connect to FastAPI backend: {str(e)}"}
+        max_retries = 1
+        for attempt in range(max_retries + 1):
+            try:
+                msg = "Waking up the server, this may take up to a minute..." if attempt == 0 else "Retrying..."
+                with st.spinner(msg):
+                    res = requests.post(url, params=params, files=files, timeout=90)
+                if res.status_code == 200:
+                    return res.json()
+                else:
+                    try:
+                        err_detail = res.json().get("detail", res.text)
+                    except Exception:
+                        err_detail = res.text
+                    return {"success": False, "error": f"Backend Error (HTTP {res.status_code}): {err_detail}"}
+            except (requests.exceptions.Timeout, requests.exceptions.ConnectionError) as e:
+                if attempt < max_retries:
+                    import time
+                    time.sleep(2)
+                    continue
+                return {"success": False, "error": f"Detection request failed after retries: {str(e)}"}
+            except requests.exceptions.RequestException as e:
+                return {"success": False, "error": f"Failed to connect to FastAPI backend: {str(e)}"}
 
     def get_history(self, limit: int = 50, search: Optional[str] = None, status_filter: Optional[str] = None) -> List[Dict[str, Any]]:
         """Fetch detection scan history."""
@@ -133,15 +141,23 @@ class APIClient:
         if user_context:
             payload["user_context"] = user_context
 
-        try:
-            res = requests.post(url, json=payload, timeout=30)
-            if res.status_code == 200:
-                return res.json()
-            return {"success": False, "reply": f"Error (HTTP {res.status_code})"}
-        except requests.exceptions.Timeout:
-            return {"success": False, "reply": "Request timed out. Please try again."}
-        except requests.exceptions.RequestException as e:
-            return {"success": False, "reply": f"Connection error: {str(e)}"}
+        max_retries = 1
+        for attempt in range(max_retries + 1):
+            try:
+                msg = "Waking up the server, this may take up to a minute..." if attempt == 0 else "Retrying..."
+                with st.spinner(msg):
+                    res = requests.post(url, json=payload, timeout=90)
+                if res.status_code == 200:
+                    return res.json()
+                return {"success": False, "reply": f"Error (HTTP {res.status_code})"}
+            except (requests.exceptions.Timeout, requests.exceptions.ConnectionError) as e:
+                if attempt < max_retries:
+                    import time
+                    time.sleep(2)
+                    continue
+                return {"success": False, "reply": f"Request failed after retries: {str(e)}"}
+            except requests.exceptions.RequestException as e:
+                return {"success": False, "reply": f"Connection error: {str(e)}"}
 
     # ------------------------------------------------------------------
     # Auth & Language Preference

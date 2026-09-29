@@ -21,7 +21,12 @@ app = FastAPI(
 # CORS Middleware setup
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+        "https://cococare.streamlit.app",
+        "http://localhost:8501",
+        "http://127.0.0.1:8501",
+        "*"  # Fallback if needed, but origins are explicitly listed
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -46,6 +51,10 @@ app.include_router(weather.router)
 
 
 
+
+@app.get("/health")
+def simple_health_check():
+    return {"status": "ok"}
 
 @app.get("/")
 def root():

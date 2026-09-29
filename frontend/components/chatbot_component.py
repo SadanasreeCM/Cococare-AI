@@ -85,7 +85,9 @@ def render_chatbot_view():
                     {"role": "assistant", "content": reply_text}
                 )
             else:
-                error_msg = t("chat_error", lang)
+                reason = response.get("reply", "Unknown error")
+                print(f"Chat error: {reason}")
+                error_msg = f"{t('chat_error', lang)} ({reason})"
                 st.error(error_msg)
                 st.session_state.chat_messages.append(
                     {"role": "assistant", "content": error_msg}
